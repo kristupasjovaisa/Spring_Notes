@@ -1,4 +1,4 @@
-package spring_notes.note.entity;
+package spring_notes.entities;
 
 import javax.persistence.*;
 import java.sql.Timestamp;

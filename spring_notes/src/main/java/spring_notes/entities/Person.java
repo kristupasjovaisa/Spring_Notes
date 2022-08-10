@@ -1,4 +1,4 @@
-package spring_notes.person.entity;
+package spring_notes.entities;
 
 import javax.persistence.*;
 
