@@ -12,4 +12,7 @@ public class Note {
     private String name;
     private String description;
     private Timestamp createdAt;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Person owner;
 }
