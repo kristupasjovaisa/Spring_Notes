@@ -34,7 +34,7 @@ public class PersonService {
 
     @Transactional
     public boolean delete(UUID id) {
-        Optional<Person> person = personRepository.findByUserId(id);
+        Optional<Person> person = personRepository.findByPersonUUID(id);
         if (person.isPresent()) {
             person.ifPresent(value -> personRepository.deleteById(value.getId()));
             return true;
