@@ -20,8 +20,9 @@ public class PersonMapper {
                 build();
     }
 
-    public Person mapFrom(UpdatePersonRequest dto) {
+    public Person mapFrom(UpdatePersonRequest dto,Long id) {
         return Person.builder().
+                id(id).
                 personUUID(dto.getPersonUUID()).
                 name(dto.getName()).
                 lastName(dto.getLastName()).

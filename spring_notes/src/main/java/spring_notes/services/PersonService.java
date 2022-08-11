@@ -28,15 +28,20 @@ public class PersonService {
     }
 
     @Transactional
-    public PersonResponse update(UpdatePersonRequest dto) {
-        return mapper.mapFrom(personRepository.save(mapper.mapFrom(dto)));
+    public Optional<PersonResponse> update(UpdatePersonRequest dto) {
+        Optional<Person> personOptional = personRepository.findByPersonUUID(dto.getPersonUUID());
+        if (personOptional.isPresent()) {
+            var person = mapper.mapFrom(dto, personOptional.get().getId());
+            return Optional.of(mapper.mapFrom(personRepository.save(person)));
+        }
+        return Optional.empty();
     }
 
     @Transactional
     public boolean delete(UUID id) {
         Optional<Person> person = personRepository.findByPersonUUID(id);
         if (person.isPresent()) {
-            person.ifPresent(value -> personRepository.deleteById(value.getId()));
+            personRepository.deleteById(person.get().getId());
             return true;
         }
         return false;
