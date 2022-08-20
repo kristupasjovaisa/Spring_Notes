@@ -2,6 +2,7 @@ package spring_notes.controllers;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -24,12 +25,12 @@ public class NoteApiController {
     public static final String UUID_PATH = "/{uuid}";
     public static final String NOTES_ROOT_PATH = "/notes";
 
-    @GetMapping
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<NoteResponse>> getNotes() {
         return ResponseEntity.ok(noteService.getAllNotes());
     }
 
-    @PutMapping
+    @PutMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<NoteResponse> updateNote(@RequestBody UpdateNoteRequest note) {
         var optionalNote = noteService.update(note);
         if (optionalNote.isPresent()) {
@@ -38,7 +39,7 @@ public class NoteApiController {
         return ResponseEntity.notFound().build();
     }
 
-    @PostMapping
+    @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<NoteResponse> addNote(@RequestBody AddNoteRequest note) {
         return ResponseEntity.ok(noteService.add(note));
     }
