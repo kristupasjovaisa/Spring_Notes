@@ -20,11 +20,11 @@ import java.util.UUID;
 public class PersonApiController {
 
     private final PersonService personService;
-    public static final String PERSON_ROOT_PATH = "/person";
+    public static final String PERSON_ROOT_PATH = "/persons";
     public static final String PERSON_UUID_PATH = "/{uuid}";
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<PersonResponse>> getAllPerson() {
+    public ResponseEntity<List<PersonResponse>> getAllPersons() {
         return ResponseEntity.ok(personService.getAllPersons());
     }
 
