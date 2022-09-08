@@ -20,8 +20,11 @@ public class Note {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private UUID noteUUID;
+    @Column(name = "name", nullable = false, length = 20)
     private String name;
+    @Column(name = "description", nullable = false, length = 20)
     private String description;
+    @Column(name = "createdAt",nullable = false)
     private Timestamp createdAt;
 
     @ManyToOne(fetch = FetchType.LAZY)
