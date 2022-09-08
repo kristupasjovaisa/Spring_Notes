@@ -12,6 +12,7 @@ import spring_notes.dto.UpdatePersonRequest;
 import spring_notes.services.PersonService;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Controller
@@ -26,6 +27,15 @@ public class PersonApiController {
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<PersonResponse>> getAllPersons() {
         return ResponseEntity.ok(personService.getAllPersons());
+    }
+
+    @GetMapping(path = PERSON_UUID_PATH)
+    public ResponseEntity<Optional<PersonResponse>> getByPersonUUID(@PathVariable("uuid") UUID id) {
+        var optionalPerson = personService.getPerson(id);
+        if (optionalPerson.isPresent()) {
+            return ResponseEntity.ok(optionalPerson);
+        }
+        return ResponseEntity.notFound().build();
     }
 
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)

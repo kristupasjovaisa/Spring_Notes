@@ -7,6 +7,7 @@ import spring_notes.dto.AddPersonRequest;
 import spring_notes.dto.PersonResponse;
 import spring_notes.dto.UpdatePersonRequest;
 import spring_notes.entities.Person;
+import spring_notes.exception.PersonNotFoundException;
 import spring_notes.mapper.PersonMapper;
 import spring_notes.repositories.PersonRepository;
 
@@ -25,6 +26,12 @@ public class PersonService {
 
     public PersonResponse add(AddPersonRequest dto) {
         return mapper.mapFrom(personRepository.save(mapper.mapFrom(dto)));
+    }
+
+    public Optional<PersonResponse> getPerson(UUID id) {
+        return Optional.of(personRepository.findByPersonUUID(id)
+                .map(mapper::mapFrom)
+                .orElseThrow(() -> new PersonNotFoundException(id)));
     }
 
     @Transactional
